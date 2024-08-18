@@ -2,13 +2,18 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import { User } from "lucide-react"
+import { useAuthStore } from '../store/authStore';
+import toast from 'react-hot-toast';
 
 
 const EmailVerificationPage = () => {
 
     const [code, setCode] = useState(["", "", "", "", "", ""])
     const inputRefs = useRef([]);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+
+    const { error, isLoading, verifyEmail } = useAuthStore();
+
 
 
     const handleChange = (index, value) => {
@@ -44,10 +49,16 @@ const EmailVerificationPage = () => {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const verificationCode = code.join("");
-        alert(`Verification code submitted: ${verificationCode}`)
+        try {
+            await verifyEmail(verificationCode);
+            navigate("/");
+            toast.success("Email verified successfully");
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Auto submit when all fields are filled
@@ -81,6 +92,7 @@ const EmailVerificationPage = () => {
                         />
                     ))}
                 </div>
+                {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
                 <button type='submit' className='w-2/3 mt-7 bg-black text-white p-2 rounded-lg hover:bg-opacity-55 shadow-2xl'>Verify Email</button>
             </form>
         </div>
