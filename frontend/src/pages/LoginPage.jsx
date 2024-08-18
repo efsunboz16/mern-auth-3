@@ -30,6 +30,7 @@ const LoginPage = () => {
                         onChange={(e) => {
                             setName(e.target.value)
                         }}
+                        className="bg-transparent border-b outline-none text-white"
                     />
                     <Input
                         icon={Mail}
@@ -39,6 +40,7 @@ const LoginPage = () => {
                         onChange={(e) => {
                             setEmail(e.target.value)
                         }}
+                        className="bg-transparent border-b outline-none text-white"
                     />
 
 
