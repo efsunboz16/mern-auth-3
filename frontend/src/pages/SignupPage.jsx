@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Input from '../components/Input'
 import { User, Mail, Lock } from "lucide-react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
 
 const SignupPage = () => {
 
@@ -9,9 +10,21 @@ const SignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSignUp = (e) => [
+    const navigate = useNavigate()
+
+    const { signup, error, isLoading } = useAuthStore()
+
+    const handleSignUp = async (e) => {
         e.preventDefault()
-    ]
+
+        try {
+            await signup(email, password, name);
+            navigate("/verify-email")
+        } catch (error) {
+
+        }
+    }
+
 
 
 
@@ -31,6 +44,7 @@ const SignupPage = () => {
                         onChange={(e) => {
                             setName(e.target.value)
                         }}
+                        className="bg-transparent border-b outline-none text-white"
                     />
                     <Input
                         icon={Mail}
@@ -40,6 +54,7 @@ const SignupPage = () => {
                         onChange={(e) => {
                             setEmail(e.target.value)
                         }}
+                        className="bg-transparent border-b outline-none text-white"
                     />
                     <Input
                         icon={Lock}
@@ -49,7 +64,9 @@ const SignupPage = () => {
                         onChange={(e) => {
                             setPassword(e.target.value)
                         }}
+                        className="bg-transparent border-b outline-none text-white"
                     />
+                    {error && <p className='text-red-500 text-sm text-center'>{error}</p>}
 
                     <button className='mt-7 bg-black text-white p-2 rounded-lg hover:bg-opacity-55 shadow-2xl'>
                         Sign Up

@@ -81,7 +81,7 @@ const EmailVerificationPage = () => {
                         />
                     ))}
                 </div>
-                <button className='w-2/3 mt-7 bg-black text-white p-2 rounded-lg hover:bg-opacity-55 shadow-2xl'>Verify Email</button>
+                <button type='submit' className='w-2/3 mt-7 bg-black text-white p-2 rounded-lg hover:bg-opacity-55 shadow-2xl'>Verify Email</button>
             </form>
         </div>
     )
