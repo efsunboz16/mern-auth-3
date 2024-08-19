@@ -4,7 +4,11 @@ import { formatDate } from '../utils/date';
 
 const Home = () => {
 
-    const { user } = useAuthStore();
+    const { user, logout } = useAuthStore();
+
+    const handleLogout = () => {
+        logout()
+    }
 
     return (
         <div className='w-full min-h-screen flex justify-center items-center'>
