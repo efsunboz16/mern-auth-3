@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuthStore } from '../store/authStore'
+import { formatDate } from '../utils/date';
 
 const Home = () => {
 
@@ -11,12 +12,32 @@ const Home = () => {
 
                 <h2 className='text-white text-2xl'>Dashboard</h2>
 
-                <div className='w-full '>
-                    <h4>Profile information</h4>
-                    <p>Name:{user.name}</p>
-                    <p>Email:{user.email} </p>
+                <div className='w-full bg-lime-300 rounded-xl p-4'>
+                    <h4 className='font-extrabold'>Profile information</h4>
+                    <p>Name: {user.name}</p>
+                    <p>Email: {user.email} </p>
                 </div>
 
+                <div className='w-full bg-lime-300 rounded-xl p-4'>
+                    <h3 className='text-xl font-extrabold text-black mb-3'>Account Activity</h3>
+                    <p className='text-black'>
+                        <span className='font-bold'>Joined: </span>
+                        {new Date(user.createdAt).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        })}
+                    </p>
+                    <p className='text-black'>
+                        <span className='font-bold'>Last Login: </span>
+
+                        {formatDate(user.lastLogin)}
+                    </p>
+                </div>
+
+                <button className='w-1/2 h-10 rounded-md bg-black text-white hover:bg-opacity-70' onClick={handleLogout}>
+                    Logout
+                </button>
 
             </div>
         </div>
