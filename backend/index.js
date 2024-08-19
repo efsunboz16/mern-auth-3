@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import authRoute from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
+// import crypto from "crypto";
+// const hash = crypto.createHash('sha256').update('veri').digest('hex');
 
 dotenv.config();
 

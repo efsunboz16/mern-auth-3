@@ -2,15 +2,20 @@ import React, { useState } from 'react'
 import Input from '../components/Input'
 import { User, Mail, Lock } from "lucide-react"
 import { Link } from 'react-router-dom'
+import { useAuthStore } from '../store/authStore'
 
 const LoginPage = () => {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
 
-    const handleLogin = (e) => [
-        e.preventDefault()
-    ]
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+
+    const { login, isLoading, error } = useAuthStore();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        await login(email, password);
+    }
 
 
 
@@ -23,16 +28,6 @@ const LoginPage = () => {
 
                 <form className='flex flex-col justify-center gap-3' onSubmit={handleLogin}>
                     <Input
-                        icon={User}
-                        type="text"
-                        placeholder="Full Name"
-                        value={name}
-                        onChange={(e) => {
-                            setName(e.target.value)
-                        }}
-                        className="bg-transparent border-b outline-none text-white"
-                    />
-                    <Input
                         icon={Mail}
                         type="email"
                         placeholder="Email Address"
@@ -42,7 +37,19 @@ const LoginPage = () => {
                         }}
                         className="bg-transparent border-b outline-none text-white"
                     />
+                    <Input
+                        icon={Lock}
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value)
+                        }}
+                        className="bg-transparent border-b outline-none text-white"
+                    />
 
+
+                    {error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
 
                     <button className='mt-7 bg-black text-white p-2 rounded-lg hover:bg-opacity-55 shadow-2xl'>
                         Login
@@ -57,7 +64,7 @@ const LoginPage = () => {
                 </div>
 
                 <div>
-                    <Link to={"/forgot-password"}>Forgot password?</Link>
+                    <Link to={"/forgot-password"} >Forgot password?</Link>
                 </div>
 
             </div>
