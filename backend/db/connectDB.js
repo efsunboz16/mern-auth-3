@@ -1,4 +1,10 @@
 import mongoose from "mongoose"
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+
+// const MONGO_URL = "mongodb+srv://MERN-AUTH-3:1rBbIqZJtrKMH3Qj@first-project-1.zqgodfx.mongodb.net/mern-auth-3 "
 
 export const connectDB = async () => {
     try {
